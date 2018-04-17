@@ -44,11 +44,20 @@ const client = mozaik => {
 
         mozaik.logger.info(chalk.yellow(`[jenkins] fetching from ${ url }`));
 
-        return req
+        if (config.get('jenkins.authRequired')) {
+            return req
             .auth(
                 config.get('jenkins.basicAuthUser'),
                 config.get('jenkins.basicAuthPassword')
             )
+            .promise()
+            .catch(error => {
+                mozaik.logger.error(chalk.red(`[jenkins] ${ error.error }`));
+                throw error;
+            })
+        }
+
+        return req
             .promise()
             .catch(error => {
                 mozaik.logger.error(chalk.red(`[jenkins] ${ error.error }`));

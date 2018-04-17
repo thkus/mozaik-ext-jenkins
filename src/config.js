@@ -8,15 +8,21 @@ const config = convict({
             format:  String,
             env:     'JENKINS_API_BASE_URL'
         },
+        authRequired: {
+            doc:    'Is authentication required for this Jenkins',
+            default: false,
+            format:  Boolean,
+            env:     'JENKINS_AUTH_REQUIRED'
+        },
         basicAuthUser: {
             doc:     'The jenkins API basic http auth user.',
-            default: null,
+            default: '',
             format:  String,
             env:     'JENKINS_API_BASIC_AUTH_USER'
         },
         basicAuthPassword: {
             doc:     'The jenkins API basic http auth password.',
-            default: null,
+            default: '',
             format:  String,
             env:     'JENKINS_API_BASIC_AUTH_PASSWORD'
         },
